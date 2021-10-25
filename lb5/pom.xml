@@ -35,7 +35,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>LATEST</version>
+                <version>3.9.1</version>
             </plugin>
         </plugins>
     </build>
