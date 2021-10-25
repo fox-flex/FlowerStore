@@ -9,9 +9,7 @@
         <artifactId>oop2021</artifactId>
         <version>1</version>
     </parent>
-    <groupId>ucu.oop</groupId>
     <artifactId>lb5</artifactId>
-    <version>1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
