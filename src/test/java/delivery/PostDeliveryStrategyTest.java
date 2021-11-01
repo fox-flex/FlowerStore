@@ -57,8 +57,8 @@ class PostDeliveryStrategyTest {
         PaymentStrategy paymentStrategy = new PayPalPaymentStrategy();
         assertEquals(post.deliverPrice(items), 3.);
         assertEquals(paymentStrategy.getBalance(), 0.);
-        assertFalse(post.deliver(items, paymentStrategy));
+        assertFalse(post.deliver(items, paymentStrategy.pay(post.deliverPrice(items))));
         paymentStrategy.setBalance(10000000.);
-        assertTrue(post.deliver(items, paymentStrategy));
+        assertTrue(post.deliver(items, paymentStrategy.pay(post.deliverPrice(items))));
     }
 }

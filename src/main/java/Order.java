@@ -1,4 +1,5 @@
 import decorators.BasketDecorator;
+import decorators.DecorType;
 import decorators.PaperDecorator;
 import decorators.RibbonDecorator;
 import delivery.DeliveryStrategy;
@@ -8,12 +9,15 @@ import payment.PaymentStrategy;
 import java.util.LinkedList;
 
 public class Order {
-    DeliveryStrategy deliveryStrategy = null;
-    PaymentStrategy paymentStrategy = null;
-    LinkedList<Item> items;
+    private DeliveryStrategy deliveryStrategy;
+    private PaymentStrategy paymentStrategy;
+    private LinkedList<Item> items;
+    private boolean paid = false;
 
-    public Order(LinkedList<Item> items) {
-        this.items = items;
+    public Order(DeliveryStrategy deliveryStrategy, PaymentStrategy paymentStrategy) {
+        this.items = new LinkedList<>();
+        this.paymentStrategy = paymentStrategy;
+        this.deliveryStrategy = deliveryStrategy;
     }
 
     public Order(LinkedList<Item> items, DeliveryStrategy deliveryStrategy, PaymentStrategy paymentStrategy) {
@@ -22,28 +26,47 @@ public class Order {
         this.deliveryStrategy = deliveryStrategy;
     }
 
+    public void updateBalance(double money) {
+        this.paymentStrategy.addToBalance(money);
+    }
+
+    public double getBalance() {
+        return this.paymentStrategy.getBalance();
+    }
+
+
+
     void setFastDelivery(boolean fastDelivery) {
         deliveryStrategy.setFastDelivery(fastDelivery);
     }
+
     void setFragileProductDelivery(boolean fragileProductDelivery) {
         deliveryStrategy.setFragileProductDelivery(fragileProductDelivery);
     }
 
     public void addItem(Item item) {
+        if (paid) {
+            System.out.println("Firstly deliver previous order!");
+            return;
+        }
         System.out.println("Add item to bucket!");
         this.items.add(item);
     }
 
-    public void decorateItemInIndex(int ind, String decor) {
+    public void clearItems() {
+        this.items.clear();
+    }
+
+    public void decorateItemInIndex(int ind, DecorType decor) {
         if (0 <= ind && ind < this.items.size()) {
             switch (decor) {
-                case "paper":
+                case PAPER:
                     this.items.set(ind, new PaperDecorator(this.items.get(ind)));
                     break;
-                case "basket":
+                case BASKET:
                     this.items.set(ind, new BasketDecorator(this.items.get(ind)));
                     break;
-                case "ribbon":
+                case RIBBON:
                     this.items.set(ind, new RibbonDecorator(this.items.get(ind)));
                     break;
                 default:
@@ -55,16 +78,23 @@ public class Order {
     }
 
     public double getPrice() {
+        if (paid)
+            return 0.;
         double price = 0.;
         for (Item item : items) {
             price += item.getPrice();
         }
-        return price;
+        return price + this.deliveryStrategy.deliverPrice(this.items);
     }
 
     public boolean pay() {
+        if (this.paid) {
+            System.out.println("You already pay for it!");
+            return true;
+        }
         if (paymentStrategy.pay(this.getPrice())) {
             System.out.println("Transaction done successfully!");
+            this.paid = true;
             return true;
         } else {
             System.out.println("Transaction go incorrect! Place check your balance and try again!");
@@ -73,22 +103,29 @@ public class Order {
     }
 
     public boolean deliver() {
-        if (this.deliveryStrategy.deliver(this.items, this.paymentStrategy)) {
+        if (this.paid) {
+            System.out.println("All " + this.items.size() + " items delivered. No items in backed now!");
             this.items.clear();
-            System.out.println("No items to deliver now!");
+            this.paid = false;
             return true;
         }
+        System.out.println("Firstly you near to pay for order!");
         return false;
     }
 
-    public void processOrder() {
-        if (this.pay()) {
+    public boolean processOrder() {
+        if (this.paid || this.pay()) {
             if (this.deliver()) {
                 System.out.println("Order finished successfully!");
-                return;
+                this.paid = false;
+                return true;
+            } else {
+                System.out.println("Fail at delivering!");
+                return false;
             }
-            System.out.println("Fail at delivering!");
+        } else {
+            System.out.println("Fail at payment process!");
+            return false;
         }
-        System.out.println("Fail at payment process!");
     }
 }

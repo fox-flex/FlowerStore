@@ -57,8 +57,8 @@ class DHLDeliveryStrategyTest {
         PaymentStrategy paymentStrategy = new PayPalPaymentStrategy();
         assertEquals(dhl.deliverPrice(items), 5.);
         assertEquals(paymentStrategy.getBalance(), 0.);
-        assertFalse(dhl.deliver(items, paymentStrategy));
+        assertFalse(dhl.deliver(items, paymentStrategy.pay(dhl.deliverPrice(items))));
         paymentStrategy.setBalance(30.);
-        assertTrue(dhl.deliver(items, paymentStrategy));
+        assertTrue(dhl.deliver(items, paymentStrategy.pay(dhl.deliverPrice(items))));
     }
 }

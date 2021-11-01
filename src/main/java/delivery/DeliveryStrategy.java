@@ -12,15 +12,15 @@ public abstract class DeliveryStrategy implements DeliveryInterface {
     private boolean fastDelivery = false;
     private boolean fragileProductDelivery = false;
 
-    public DeliveryStrategy() {};
+    public DeliveryStrategy() {}
 
     public DeliveryStrategy(boolean fastDelivery, boolean fragileProduct) {
         this.fastDelivery = fastDelivery;
         this.fragileProductDelivery = fragileProduct;
-    };
+    }
 
 
-    public abstract boolean deliver(List<Item> items, PaymentStrategy paymentStrategy);
+    public abstract boolean deliver(List<Item> items, boolean deliverDone);
 
     public abstract double deliverPrice(List<Item> items);
 
@@ -38,7 +38,7 @@ public abstract class DeliveryStrategy implements DeliveryInterface {
             System.out.print(" Additional payment for fragile product delivery.");
             price += fragileProductPrice;
         }
-        return price;
+        return price * items.size();
 //        return (this.fastDelivery) ? fastDeliveryPrice : deliveryPrice;
     }
 }

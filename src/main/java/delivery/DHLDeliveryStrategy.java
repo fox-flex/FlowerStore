@@ -9,12 +9,12 @@ public class DHLDeliveryStrategy extends DeliveryStrategy {
     private static final double deliveryPrice = 5., fastDeliveryPrice = 12.5, fragileProductPrice = 10.;
 
     @Override
-    public boolean deliver(List<Item> items, PaymentStrategy paymentStrategy) {
-        if (paymentStrategy.pay(deliverPrice(items))) {
+    public boolean deliver(List<Item> items, boolean deliverDone) {
+        if (deliverDone) {
             System.out.println("Delivered successfully!");
             return true;
         } else {
-            System.out.println("Not enough money to pay for delivering! Try again!");
+            System.out.println("At the moment delivering can't be done! Try again!");
             return false;
         }
     }
