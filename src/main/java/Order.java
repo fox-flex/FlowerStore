@@ -6,7 +6,6 @@ import items.Item;
 import payment.PaymentStrategy;
 
 import java.util.LinkedList;
-import java.util.Objects;
 
 public class Order {
     DeliveryStrategy deliveryStrategy = null;

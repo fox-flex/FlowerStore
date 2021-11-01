@@ -3,7 +3,7 @@ package decorators;
 import items.Item;
 
 public class RibbonDecorator extends ItemDecorator{
-    private static final double additionalPrice = 13;
+    private static final double additionalPrice = 39;
 
     public RibbonDecorator(Item item) {
         super(item);

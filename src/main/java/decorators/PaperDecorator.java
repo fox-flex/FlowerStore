@@ -3,7 +3,7 @@ package decorators;
 import items.Item;
 
 public class PaperDecorator extends ItemDecorator {
-    private static final double additionalPrice = 13;
+    private static final double additionalPrice = 13.21;
 
     public PaperDecorator(Item item) {
         super(item);

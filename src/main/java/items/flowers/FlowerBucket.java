@@ -15,6 +15,11 @@ public class FlowerBucket extends Item {
         this.description = "Bed bucket!";
     }
 
+    public FlowerBucket(ArrayList<FlowerPack> flowerPacks) {
+        this.flowerPacks.addAll(flowerPacks);
+        this.description = "AAAAAAAA";
+    }
+
     public FlowerBucket(ArrayList<FlowerPack> flowerPacks, String description) {
         this.flowerPacks.addAll(flowerPacks);
         this.description = description;

@@ -23,7 +23,6 @@ public class ItemDecorator extends Item {
         return this.sale;
     }
 
-
     @Override
     public double getPrice() {
         return this.item.getPrice() * this.sale;

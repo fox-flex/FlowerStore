@@ -8,12 +8,6 @@ import java.util.List;
 public class DHLDeliveryStrategy extends DeliveryStrategy {
     private static final double deliveryPrice = 5., fastDeliveryPrice = 12.5, fragileProductPrice = 10.;
 
-//    public DHLDeliveryStrategy() {super();};
-//
-//    public DHLDeliveryStrategy(boolean fastDelivery, boolean fragileProduct) {
-//        super(fastDelivery, fragileProduct);
-//    };
-
     @Override
     public boolean deliver(List<Item> items, PaymentStrategy paymentStrategy) {
         if (paymentStrategy.pay(deliverPrice(items))) {
