@@ -2,14 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>ucu.oop</groupId>
-        <artifactId>oop2021</artifactId>
-        <version>1</version>
-    </parent>
-    <artifactId>lb5</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ua.edu.ucu.oop.2021</groupId>
+    <artifactId>lb56</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
