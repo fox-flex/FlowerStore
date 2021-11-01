@@ -1,5 +1,5 @@
+package items.flowers;
 
-import flowers.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 @Getter @Setter @ToString
 public class FlowersStore {
-
     private ArrayList<FlowerBucket> buckets = new ArrayList<>();
 
     public FlowersStore() {}
@@ -19,10 +18,9 @@ public class FlowersStore {
 
     public ArrayList<FlowerBucket> search(int maxPrice) {
         ArrayList<FlowerBucket> bucketsOut = new ArrayList<>();
-        for (int i=0; i<buckets.size(); ++i) {
-//        for (FlowerBucket bucket : buckets) {
-            if (buckets.get(i).getPrice() <= maxPrice) {
-                bucketsOut.add(buckets.get(i));
+        for (FlowerBucket bucket : buckets) {
+            if (bucket.getPrice() <= maxPrice) {
+                bucketsOut.add(bucket);
             }
         }
         return bucketsOut;

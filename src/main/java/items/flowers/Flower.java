@@ -1,5 +1,6 @@
-package flowers;
+package items.flowers;
 
+import items.Item;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +10,7 @@ import java.util.EnumMap;
 import java.util.HashSet;
 
 @Getter @Setter @ToString
-public class Flower {
+public class Flower extends Item {
     private double sepalLength, price;
     private FlowerType flowerType;
     private String color;
@@ -22,12 +23,12 @@ public class Flower {
     }
 
     public Flower(FlowerType flowerType) {
+        this.description = "Tiny flower";
         this.flowerType = flowerType;
     }
 
-
-
     public Flower(FlowerType flowerType, String colorNew, double sepalLengthNew, double priceNew) {
+        this.description = "Tiny flower";
         this.flowerType = flowerType;
         if (possibleColors.get(flowerType).contains(colorNew)) {
             this.color = colorNew;
@@ -53,4 +54,8 @@ public class Flower {
         this.price = 0.;
     }
 
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
 }
