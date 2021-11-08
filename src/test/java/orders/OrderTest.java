@@ -1,3 +1,5 @@
+package orders;
+
 import decorators.DecorType;
 import delivery.DeliveryStrategy;
 import delivery.PostDeliveryStrategy;
@@ -11,10 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import payment.PayPalPaymentStrategy;
 import payment.PaymentStrategy;
+import users.Receiver;
+import users.Sender;
+import users.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -107,5 +111,23 @@ class OrderTest {
         assertTrue(order.pay());
         assertTrue(order.processOrder());
         assertTrue(order.processOrder());
+    }
+
+    @Test
+    void addDelUser() {
+        assertEquals(order.getUsers().size(), 0);
+        User receiver = new Receiver();
+        order.addUser(receiver);
+        order.addUser(new Sender());
+        assertEquals(order.getUsers().size(), 2);
+        order.delUser(receiver);
+        assertEquals(order.getUsers().size(), 1);
+        order.delUser(order.getUsers().get(0));
+        assertEquals(order.getUsers().size(), 0);
+    }
+
+    @Test
+    void order() {
+
     }
 }

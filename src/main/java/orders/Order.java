@@ -1,3 +1,5 @@
+package orders;
+
 import decorators.BasketDecorator;
 import decorators.DecorType;
 import decorators.PaperDecorator;
@@ -5,25 +7,31 @@ import decorators.RibbonDecorator;
 import delivery.DeliveryStrategy;
 import items.Item;
 import payment.PaymentStrategy;
+import users.User;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Order {
-    private DeliveryStrategy deliveryStrategy;
-    private PaymentStrategy paymentStrategy;
-    private LinkedList<Item> items;
+    private final DeliveryStrategy deliveryStrategy;
+    private final PaymentStrategy paymentStrategy;
+    private final LinkedList<Item> items;
+    private List<User> users;
     private boolean paid = false;
 
     public Order(DeliveryStrategy deliveryStrategy, PaymentStrategy paymentStrategy) {
         this.items = new LinkedList<>();
         this.paymentStrategy = paymentStrategy;
         this.deliveryStrategy = deliveryStrategy;
+        this.users = new ArrayList<>();
     }
 
     public Order(LinkedList<Item> items, DeliveryStrategy deliveryStrategy, PaymentStrategy paymentStrategy) {
         this.items = items;
         this.paymentStrategy = paymentStrategy;
         this.deliveryStrategy = deliveryStrategy;
+        this.users = new ArrayList<>();
     }
 
     public void updateBalance(double money) {
@@ -34,14 +42,16 @@ public class Order {
         return this.paymentStrategy.getBalance();
     }
 
-
-
     void setFastDelivery(boolean fastDelivery) {
         deliveryStrategy.setFastDelivery(fastDelivery);
     }
 
     void setFragileProductDelivery(boolean fragileProductDelivery) {
         deliveryStrategy.setFragileProductDelivery(fragileProductDelivery);
+    }
+
+    public List<User> getUsers() {
+        return this.users;
     }
 
     public void addItem(Item item) {
@@ -116,7 +126,7 @@ public class Order {
     public boolean processOrder() {
         if (this.paid || this.pay()) {
             if (this.deliver()) {
-                System.out.println("Order finished successfully!");
+                System.out.println("orders.Order finished successfully!");
                 this.paid = false;
                 return true;
             } else {
@@ -127,5 +137,23 @@ public class Order {
             System.out.println("Fail at payment process!");
             return false;
         }
+    }
+
+    // Work with users
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+
+    public void delUser(User user) {
+        this.users.remove(user);
+    }
+
+    public void notifyUsers() {
+        for (User user : this.users)
+            user.update();
+    }
+
+    public void order() {
+        this.notifyUsers();
     }
 }

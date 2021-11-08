@@ -6,6 +6,7 @@ import items.flowers.Flower;
 import items.flowers.FlowerBucket;
 import items.flowers.FlowerPack;
 import items.flowers.FlowerType;
+import lombok.Getter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import payment.PayPalPaymentStrategy;

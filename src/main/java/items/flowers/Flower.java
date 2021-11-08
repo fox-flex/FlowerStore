@@ -13,7 +13,7 @@ import java.util.HashSet;
 public class Flower extends Item {
     private double sepalLength, price;
     private FlowerType flowerType;
-    private String color;
+    private String color = "not def";
     private static final EnumMap<FlowerType, HashSet<String>> possibleColors;
     static {
         possibleColors = new EnumMap<>(FlowerType.class);
@@ -32,8 +32,6 @@ public class Flower extends Item {
         this.flowerType = flowerType;
         if (possibleColors.get(flowerType).contains(colorNew)) {
             this.color = colorNew;
-        } else {
-            this.color = "not def";
         }
         this.sepalLength = sepalLengthNew;
         this.price = priceNew;
@@ -42,8 +40,6 @@ public class Flower extends Item {
     public void setColor(String color) {
         if (possibleColors.get(flowerType).contains(color)) {
             this.color = color;
-        } else {
-            this.color = "none";
         }
     }
 
